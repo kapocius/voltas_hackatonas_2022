@@ -1,24 +1,63 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Home.css';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { stringify } from "querystring";
+import InitialScreen from "../components/InitialScreen";
+import "./Home.css";
 
-const Home: React.FC = () => {
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { searchAndConnect } from "../BleService";
+
+const Page = styled(IonPage)`
+  display: flex;
+  color: #fff;
+
+  .center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const Home: React.FC<any> = (props: any) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
+
+  useEffect(() => {
+    try {
+      // scan(setDevices);
+      searchAndConnect()
+        .then(() => {
+          setIsLoading(false);
+          setIsConnected(true);
+        })
+        .catch(() => {
+          setIsLoading(false);
+          setIsConnected(false);
+        });
+    } catch (e) {
+      console.log(e);
+      setIsLoading(false);
+      setIsConnected(false);
+    }
+  }, []);
+
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+    <Page>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
+        {/* <IonToolbar>
+          <IonTitle style={{ textAlign: "center" }} size="large">
+            Blank
+          </IonTitle>
+        </IonToolbar> */}
+
+        <InitialScreen isConnected={isConnected} isLoading={isLoading} />
+        {/* <Container> 
+        {/* </Container> */}
       </IonContent>
-    </IonPage>
+    </Page>
   );
 };
 

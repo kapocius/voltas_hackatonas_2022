@@ -21,16 +21,12 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { useEffect } from "react";
-import { main } from "./BleService";
+import { useEffect, useState } from "react";
+import { searchAndConnect, scan } from "./BleService";
 
 setupIonicReact();
 
 const App: React.FC = () => {
-  useEffect(() => {
-    main();
-  }, []);
-
   return (
     <IonApp>
       <IonReactRouter>
