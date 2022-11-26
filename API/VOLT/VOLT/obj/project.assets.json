@@ -224,26 +224,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Eleonora\\.nuget\\packages\\": {}
+    "/Users/kapocius/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Eleonora\\source\\repos\\voltas_hackatonas_2022.git\\API\\VOLT\\VOLT\\VOLT.csproj",
+      "projectUniqueName": "/Users/kapocius/Desktop/Projects/voltas_hackatonas_2022/API/VOLT/VOLT/VOLT.csproj",
       "projectName": "VOLT",
-      "projectPath": "C:\\Users\\Eleonora\\source\\repos\\voltas_hackatonas_2022.git\\API\\VOLT\\VOLT\\VOLT.csproj",
-      "packagesPath": "C:\\Users\\Eleonora\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Eleonora\\source\\repos\\voltas_hackatonas_2022.git\\API\\VOLT\\VOLT\\obj\\",
+      "projectPath": "/Users/kapocius/Desktop/Projects/voltas_hackatonas_2022/API/VOLT/VOLT/VOLT.csproj",
+      "packagesPath": "/Users/kapocius/.nuget/packages/",
+      "outputPath": "/Users/kapocius/Desktop/Projects/voltas_hackatonas_2022/API/VOLT/VOLT/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Eleonora\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/kapocius/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -286,7 +284,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }
