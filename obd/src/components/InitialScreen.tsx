@@ -5,6 +5,7 @@ import { BsShieldCheck } from "react-icons/bs";
 import { IonIcon } from "react-ion-icon";
 import { readChar, writeChar } from "../BleService";
 import { numbersToDataView, textToDataView } from "@capacitor-community/bluetooth-le";
+import { useState } from "react";
 
 const PageContainer = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const Service = styled.div`
 
 const InitialScreen: React.FC<any> = (props: any) => {
   const { isLoading, isConnected, device, services } = props;
+  const [oldService, setOldService] = useState<any>({});
 
   return (
     <IonContent className="ion-padding">
@@ -63,13 +65,52 @@ const InitialScreen: React.FC<any> = (props: any) => {
                     <br />
                     Descriptors: {c?.descriptors?.join(",")}
                     <br /> */}
-                      <button onClick={() => writeChar(device.deviceId, uuid, c.uuid, textToDataView("AT Z"))}>
+                      {/* <button onClick={() => writeChar(device.deviceId, uuid, c.uuid, textToDataView("AT Z"))}>
                         WRITE ATZ {c.uuid}
+                      </button> */}
+                      <button
+                        onClick={() =>
+                          writeChar(
+                            device.deviceId,
+                            uuid,
+                            c.uuid,
+                            textToDataView(`AT SP 0 2`),
+                            oldService,
+                            setOldService,
+                            c.descriptors
+                          )
+                        }
+                      >
+                        WRITE ATZP0 {c.uuid}
                       </button>
-                      <button onClick={() => writeChar(device.deviceId, uuid, c.uuid, numbersToDataView([0x01, 0x00]))}>
+                      <button
+                        onClick={() =>
+                          writeChar(
+                            device.deviceId,
+                            uuid,
+                            c.uuid,
+                            numbersToDataView([0x01, 0x00]),
+                            oldService,
+                            setOldService,
+                            c.descriptors
+                          )
+                        }
+                      >
                         WRITE 0100 {c.uuid}
                       </button>
-                      <button onClick={() => writeChar(device.deviceId, uuid, c.uuid, numbersToDataView([0x09, 0x02]))}>
+                      <button
+                        onClick={() =>
+                          writeChar(
+                            device.deviceId,
+                            uuid,
+                            c.uuid,
+                            textToDataView("0902\n"),
+                            oldService,
+                            setOldService,
+                            c.descriptors
+                          )
+                        }
+                      >
                         WRITE 0902 {c.uuid}
                       </button>
                       {/* {c?.descriptors?.map((d: any) => {

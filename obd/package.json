@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@awesome-cordova-plugins/ble": "^6.2.0",
     "@capacitor-community/bluetooth-le": "^2.0.1",
     "@capacitor/android": "4.5.0",
     "@capacitor/app": "4.1.1",
@@ -22,6 +23,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "cordova-plugin-ble-central": "^1.6.1",
     "history": "^4.9.0",
     "ionicons": "^6.0.3",
     "react": "^18.2.0",

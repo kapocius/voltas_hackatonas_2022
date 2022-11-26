@@ -30,23 +30,23 @@ const Home: React.FC<any> = (props: any) => {
   console.log(webUUIDToString("0000ffe0-0000-1000-8000-00805f9b34fb"));
 
   useEffect(() => {
-    try {
-      // scan(setDevices);
-      searchAndConnect()
-        .then((services) => {
-          setState(services);
-          setIsLoading(false);
-          setIsConnected(true);
-        })
-        .catch(() => {
-          setIsLoading(false);
-          setIsConnected(false);
-        });
-    } catch (e) {
-      console.log(e);
-      setIsLoading(false);
-      setIsConnected(false);
-    }
+    // try {
+    //   // scan(setDevices);
+    //   searchAndConnect()
+    //     .then((services) => {
+    //       setState(services);
+    //       setIsLoading(false);
+    //       setIsConnected(true);
+    //     })
+    //     .catch(() => {
+    //       setIsLoading(false);
+    //       setIsConnected(false);
+    //     });
+    // } catch (e) {
+    //   console.log(e);
+    //   setIsLoading(false);
+    //   setIsConnected(false);
+    // }
   }, []);
 
   return (
