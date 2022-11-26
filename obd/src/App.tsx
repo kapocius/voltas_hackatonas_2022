@@ -18,12 +18,12 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
-import { BLE } from "@awesome-cordova-plugins/ble/ngx";
 
 /* Theme variables */
 import "./theme/variables.css";
 import { useEffect, useState } from "react";
 import { searchAndConnect, scan, ELM_MAC, ELM_SERVICE, ELM_CHARACTERISTIC } from "./BleService";
+import { BLE } from "@awesome-cordova-plugins/ble";
 
 setupIonicReact();
 
@@ -38,7 +38,7 @@ function str2ab(str: any) {
 
 const App: React.FC = () => {
   useEffect(() => {
-    const ble = new BLE();
+    const ble = BLE;//();
     ble.connect(ELM_MAC);
     ble.startNotification(ELM_MAC, ELM_SERVICE, ELM_CHARACTERISTIC);
     ble.writeWithoutResponse(ELM_MAC, ELM_SERVICE, ELM_CHARACTERISTIC, str2ab("ATSP0\n"));
