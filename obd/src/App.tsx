@@ -27,24 +27,12 @@ import { searchAndConnect, scan } from "./BleService";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const [devices, setDevices] = useState<any>([]);
-  useEffect(() => {
-    try {
-      // scan(setDevices);
-      searchAndConnect();
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
-  // scan()
-  console.log(devices);
-
   return (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/home">
-            <Home devices={devices?.filter((d: any) => d?.deviceId?.includes("00"))} />
+            <Home />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />
