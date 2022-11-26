@@ -61,6 +61,19 @@ export async function searchAndConnect(deviceId?: any): Promise<void> {
     const services = await BleClient.getServices(device.deviceId);
     console.log(services);
 
+
+    const charact = await BleClient.read(device.deviceId, "0000ffe0-0000-1000-8000-00805f9b34fb", "0000ffe1-0000-1000-8000-00805f9b34fb");
+    console.log('charact', charact, charact.getUint8(0));
+
+    await BleClient.startNotifications(
+      device.deviceId,
+      "0000ffe0-0000-1000-8000-00805f9b34fb", 
+      "0000ffe1-0000-1000-8000-00805f9b34fb",
+      (value) => {
+        console.log('current value', parseHeartRate(value));
+      }
+    );
+
     // const result = await BleClient.read(device.deviceId, HEART_RATE_SERVICE, BODY_SENSOR_LOCATION_CHARACTERISTIC);
     // console.log("body sensor location", result.getUint8(0));
 

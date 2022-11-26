@@ -6,7 +6,8 @@ const config: CapacitorConfig = {
   webDir: 'build',
   bundledWebRuntime: false,
   "server": {
-    "url": "http://10.50.8.96:8100",
+    // "url": "http://10.50.8.96:8100",  elwio
+    "url": "http://10.50.8.93:8100",  
     "cleartext": true
   },
 };
