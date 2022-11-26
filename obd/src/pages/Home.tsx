@@ -6,6 +6,7 @@ import "./Home.css";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { searchAndConnect } from "../BleService";
+import { webUUIDToString } from "@capacitor-community/bluetooth-le";
 
 const Page = styled(IonPage)`
   display: flex;
@@ -24,6 +25,8 @@ const Page = styled(IonPage)`
 const Home: React.FC<any> = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
+
+  console.log(webUUIDToString("0000ffe0-0000-1000-8000-00805f9b34fb"));
 
   useEffect(() => {
     try {
