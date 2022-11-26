@@ -1,15 +1,22 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Home.css';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { stringify } from "querystring";
+import ExploreContainer from "../components/ExploreContainer";
+import "./Home.css";
 
-const Home: React.FC = () => {
+const Home: React.FC<any> = (props: any) => {
   return (
     <IonPage>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           <IonTitle>Blank</IonTitle>
         </IonToolbar>
-      </IonHeader>
+      </IonHeader> */}
+      {props?.devices?.map((dev: any) => (
+        <div>
+          ID: {dev.deviceId}
+          <br />
+        </div>
+      ))}
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>

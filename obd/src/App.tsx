@@ -21,22 +21,30 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { useEffect } from "react";
-import { main } from "./BleService";
+import { useEffect, useState } from "react";
+import { searchAndConnect, scan } from "./BleService";
 
 setupIonicReact();
 
 const App: React.FC = () => {
+  const [devices, setDevices] = useState<any>([]);
   useEffect(() => {
-    main();
+    try {
+      // scan(setDevices);
+      searchAndConnect();
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
+  // scan()
+  console.log(devices);
 
   return (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/home">
-            <Home />
+            <Home devices={devices?.filter((d: any) => d?.deviceId?.includes("00"))} />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />
