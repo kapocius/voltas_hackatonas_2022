@@ -25,6 +25,7 @@ const Page = styled(IonPage)`
 const Home: React.FC<any> = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
+  const [state, setState] = useState<any>({});
 
   console.log(webUUIDToString("0000ffe0-0000-1000-8000-00805f9b34fb"));
 
@@ -32,7 +33,8 @@ const Home: React.FC<any> = (props: any) => {
     try {
       // scan(setDevices);
       searchAndConnect()
-        .then(() => {
+        .then((services) => {
+          setState(services);
           setIsLoading(false);
           setIsConnected(true);
         })
@@ -56,7 +58,12 @@ const Home: React.FC<any> = (props: any) => {
           </IonTitle>
         </IonToolbar> */}
 
-        <InitialScreen isConnected={isConnected} isLoading={isLoading} />
+        <InitialScreen
+          device={state.device}
+          isConnected={isConnected}
+          isLoading={isLoading}
+          services={state.services}
+        />
         {/* <Container> 
         {/* </Container> */}
       </IonContent>

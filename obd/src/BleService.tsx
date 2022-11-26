@@ -4,6 +4,7 @@ import {
   hexStringToDataView,
   numbersToDataView,
   numberToUUID,
+  textToDataView,
   webUUIDToString,
 } from "@capacitor-community/bluetooth-le";
 
@@ -48,13 +49,61 @@ const ELM_MAC = "1C:BA:8C:1D:F2:D3";
 // const ELM_MAC = "1c:ba:8c:1d:f2:d3";
 const ELM_UUID = "0000ffe0-0000-1000-8000-00805f9b34fb";
 
-export async function searchAndConnect(deviceId?: any): Promise<void> {
+export async function readChar(deviceId: any, service: any, characteristic: any) {
+  let data = await BleClient.read(
+    deviceId,
+    service,
+    characteristic
+    // "00002902-0000-1000-8000-00805f9b34fb",
+    // textToDataView("09 02"),
+    // {
+    //   timeout: 20000,
+    // }
+    // numbersToDataView(0x0902)
+  );
+
+  console.log("DATA READ", dataViewToHexString(data));
+
+  //   await BleClient.startNotifications(deviceId, service, characteristic, (value) => {
+  //     console.log("value", value, dataViewToHexString(value));
+  //   });
+  //   const respa = await BleClient.read(deviceId, service, characteristic);
+  //   console.log("RESPONSE READ:", respa, dataViewToHexString(respa));
+}
+
+export async function writeChar(deviceId: any, service: any, characteristic: any, value?: any, descriptor?: any) {
+  await BleClient.startNotifications(deviceId, service, characteristic, (value) => {
+    console.log("value", value, dataViewToHexString(value));
+  });
+
+  await BleClient.writeWithoutResponse(
+    deviceId,
+    service,
+    characteristic,
+    // "00002902-0000-1000-8000-00805f9b34fb",
+    // textToDataView("0100"),
+    // descriptor,
+    // numbersToDataView([0x01, 0x0c]),
+    textToDataView("AT Z"),
+    value
+    // {
+    //   timeout: 20000,
+    // }
+    // numbersToDataView(0x0902)
+  );
+
+  //   const respa = await BleClient.read(deviceId, service, characteristic);
+  //   console.log("RESPONSE READ:", respa, dataViewToHexString(respa));
+}
+
+export async function searchAndConnect(): Promise<any> {
   //   try {
   await BleClient.initialize();
 
   const device = await BleClient.requestDevice({
     services: ["0000ffe0-0000-1000-8000-00805f9b34fb", "00001800-0000-1000-8000-00805f9b34fb"],
   });
+
   // const device = { deviceId: ELM_MAC };
   //   services: [HEART_RATE_SERVICE],
   //   optionalServices: [BATTERY_SERVICE, POLAR_PMD_SERVICE],
@@ -63,24 +112,26 @@ export async function searchAndConnect(deviceId?: any): Promise<void> {
 
   console.log(device);
   // connect to device, the onDisconnect callback is optional
-  // await BleClient.disconnect(device.deviceId);
+  await BleClient.disconnect(device.deviceId);
   await BleClient.connect(device.deviceId, (deviceId) => onDisconnect(deviceId));
+  //   await BleClient.createBond(device.deviceId);
 
   // await BleClient.requestLEScan()
   console.log("connected to device", device.deviceId);
 
   const services = await BleClient.getServices(device.deviceId);
   console.log(services);
+  return { device, services };
 
   //   await BleClient.write(device.deviceId, )
 
-  await BleClient.writeWithoutResponse(
-    device.deviceId,
-    "0000180a-0000-1000-8000-00805f9b34fb",
-    "00002a23-0000-1000-8000-00805f9b34fb",
-    hexStringToDataView("09 02")
-    // numbersToDataView([09, 02])
-  );
+  //   await BleClient.writeWithoutResponse(
+  //     device.deviceId,
+  //     "0000180a-0000-1000-8000-00805f9b34fb",
+  //     "00002a23-0000-1000-8000-00805f9b34fb",
+  //     hexStringToDataView("09 02")
+  // numbersToDataView([09, 02])
+  //   );
 
   //   const resp = await BleClient.read(
   //     device.deviceId,
@@ -107,14 +158,14 @@ export async function searchAndConnect(deviceId?: any): Promise<void> {
 
   //   console.log("respa", respa, dataViewToHexString(respa));
 
-  await BleClient.startNotifications(
-    device.deviceId,
-    "0000180a-0000-1000-8000-00805f9b34fb",
-    "00002a23-0000-1000-8000-00805f9b34fb",
-    (value) => {
-      console.log("value", value, dataViewToHexString(value));
-    }
-  );
+  //   await BleClient.startNotifications(
+  //     device.deviceId,
+  //     "0000180a-0000-1000-8000-00805f9b34fb",
+  //     "00002a23-0000-1000-8000-00805f9b34fb",
+  //     (value) => {
+  //       console.log("value", value, dataViewToHexString(value));
+  //     }
+  //   );
 
   // const result = await BleClient.read(device.deviceId, HEART_RATE_SERVICE, BODY_SENSOR_LOCATION_CHARACTERISTIC);
   // console.log("body sensor location", result.getUint8(0));
@@ -135,11 +186,11 @@ export async function searchAndConnect(deviceId?: any): Promise<void> {
   // );
 
   // disconnect after 10 sec
-  setTimeout(async () => {
-    //   await BleClient.stopNotifications(device.deviceId, HEART_RATE_SERVICE, HEART_RATE_MEASUREMENT_CHARACTERISTIC);
-    await BleClient.disconnect(device.deviceId);
-    console.log("disconnected from device", device);
-  }, 10000);
+  //   setTimeout(async () => {
+  //     //   await BleClient.stopNotifications(device.deviceId, HEART_RATE_SERVICE, HEART_RATE_MEASUREMENT_CHARACTERISTIC);
+  //     await BleClient.disconnect(device.deviceId);
+  //     console.log("disconnected from device", device);
+  //   }, 10000);
   //   } catch (error) {
   //     console.error(error);
   //   }
