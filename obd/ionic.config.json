@@ -1,0 +1,7 @@
+{
+  "name": "obd",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
